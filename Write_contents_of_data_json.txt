@@ -1,0 +1,22 @@
+# Importing Libraries
+import csv 
+import json
+
+#  Load the json file
+with open("test.json") as f:
+    data = json.load(f)
+    
+# Looping through dictionary 
+res = {i:[] for i in data.keys()}
+for i in data.keys():
+    for j in data[i].keys():
+        res[i].append(data[i][j])
+
+#  Writing to csv
+with open("test_to_csv.csv", "w", newline='') as outfile:
+    writer = csv.writer(outfile)
+    key_list = list(res.keys())
+    limit = len(res[key_list[0]])
+    writer.writerow(res.keys())
+    for i in range(limit):
+        writer.writerow([res[x][i] for x in key_list])
